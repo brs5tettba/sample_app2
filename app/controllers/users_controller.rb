@@ -8,6 +8,7 @@ class UsersController < ApplicationController
 		#@user = User.new(params[:user]) # not the final implementation!  Allows mass assignment attacks.
 		@user = User.new(user_params) # defined below
 		if @user.save
+			flash[:success] = "Welcome to the Sample App!"
 			redirect_to @user
 		else
 			render 'new'
