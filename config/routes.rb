@@ -5,9 +5,19 @@ SampleApp::Application.routes.draw do
 	match '/help', to: 'static_pages#help', via: 'get'
 	match '/about', to: 'static_pages#about', via: 'get'
 	match '/contact', to: 'static_pages#contact', via: 'get'
-	
+
 	### USER PAGES
-	get "users/new"
+	resources :users
+	# provides:				Action	Named route
+	# Get /users			index		users_path
+	# Post /users			create	users_path
+	# Get /users/new		new		new_user_path
+	# Get /users/1			show		user_path(user)
+	# Patch /users/1		update	user_path(user)
+	# Delete /users/1		destroy	user_path(user)
+	# Get /users/1/edit	edit		edit_user_path(user)
+
+	#get "users/new" # Replaced by resources :users
 	match '/signup', to: 'users#new', via: 'get'
 
 
