@@ -8,6 +8,7 @@ class UsersController < ApplicationController
 		#@user = User.new(params[:user]) # not the final implementation!  Allows mass assignment attacks.
 		@user = User.new(user_params) # defined below
 		if @user.save
+			sign_in @user # in sessions_helper
 			flash[:success] = "Welcome to the Sample App!"
 			redirect_to @user
 		else
@@ -20,6 +21,7 @@ class UsersController < ApplicationController
 	end
 
 	private
+
 		def user_params
 			params.require(:user).permit(:name, :email, :password, :password_confirmation)
 		end

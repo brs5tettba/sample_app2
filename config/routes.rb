@@ -20,6 +20,18 @@ SampleApp::Application.routes.draw do
 	#get "users/new" # Replaced by resources :users
 	match '/signup', to: 'users#new', via: 'get'
 
+	### SESSIONS/AUTHENTICATION
+	# Request			Named route		Action	Purpose
+	# Custom:
+	# Get /signin		signin_path		new		page for a new session (signin)
+	# Default:
+	# Post /sessions	sessions_path	create	create a new session
+	# Custom:
+	# Delete /signout	signout_path	destroy	delete a session (sign out)
+	resources :sessions, only: [:new, :create, :destroy]
+	match '/signin',	to: 'sessions#new',		via: 'get'
+	match '/signout',	to: 'sessions#destroy',	via: 'delete'
+
 
 	# The priority is based upon order of creation: first created -> highest priority.
 	# See how all your routes lay out with "rake routes".

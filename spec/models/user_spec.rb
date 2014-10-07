@@ -14,10 +14,13 @@ describe User do
 	it { should respond_to(:password_digest) }
 	it { should respond_to(:password) }
 	it { should respond_to(:password_confirmation) }
+	# Kind of weird... *persist* session information even after browser close
+	it { should respond_to(:remember_token) }
+	it { should respond_to(:authenticate) }
 
 	it { should be_valid }
 
-	describe "when name is not prosent" do
+	describe "when name is not present" do
 		before { @user.name = " " }
 		it { should_not be_valid }
 	end
@@ -107,6 +110,11 @@ describe User do
 			# could also be written as:
 			specify { expect(user_for_invalid_password).to be_false }
 		end
+	end
+
+	describe "remember token is auto-generated on user save" do
+		before { @user.save }
+		its(:remember_token) { should_not be_blank }
 	end
 
 end
